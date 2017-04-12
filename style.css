@@ -1,0 +1,12 @@
+body{
+  background: #f7f7f9;
+}
+
+.country__flag img{
+  max-height: 100px;
+}
+
+.guess-flag__image img{
+  max-height: 200px;
+  border: 1px solid grey;
+}

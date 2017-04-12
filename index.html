@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Flags</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="script.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Flags</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="#" ng-click="showAll()">Show all flags</a></li>
+        <li><a href="#" ng-click="gueessFlag()">Guess Random Flag</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container" id="page_center">
+    
+    <div class="countries container-fluid" data-ng-if="mode == 1" id="countries_container">
+      <ul class="row">
+        <li class="country col-lg-3  col-md-3 col-sm-3 col-xs-4" ng-repeat="x in countries">
+          <h3>{{x.name}}</h3>
+          <div class="country__details">
+            <div>{{x.region}} - {{x.capital}}</div>
+            
+            
+
+            <!-- <div>code: {{x.alpha2Code}}</div>
+            <div>population: {{x.population}}</div>
+            <div>latlng: {{x.latlng}}</div>
+            <div>demonym: {{x.demonym}}</div>
+            <div>area: {{x.area}}</div>
+            <div>gini: {{x.gini}}</div>
+            <div>timezones: {{x.timezones}}</div>
+            <div>borders: {{x.borders}}</div>
+            <div>nativeName: {{x.nativeName}}</div>
+            <div>currencies: {{x.currencies}}</div>
+            <div>languages: {{x.languages}}</div> -->
+          </div>
+          <div class="country__flag"> 
+            <img src="{{x.flag}}"></>
+          </div>
+        </li>
+       </ul> 
+    </div>
+
+    <div class="guess-flag container-fluid" data-ng-if="mode == 2" id="guess_flag_container">
+      <h3>Twój wynik: {{guessFlag.score}}/{{guessFlag.allAsk}}</h3>
+      <div class="row">
+        <div class="guess-flag__image col-xs-6">
+          <img class="img-responsive center-block"src="{{guessFlag.country.flag}}"></>
+        </div>
+
+        <div class="guess-flag__answears col-xs-6">
+          <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{data[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(data[x].alpha2Code)">
+
+            {{ data[x].name }}
+            
+          </button>
+
+          <button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+
+
+
+  <footer>
+    <p>Copyright 2009 Your name</p>
+  </footer>
+
+</body>
+
+</html>
