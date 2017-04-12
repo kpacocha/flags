@@ -110,7 +110,7 @@
 
         <div class="guess-flag__answears col-xs-6">
           <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
-            {{ data[x].name }}
+            {{ countries[x].name }}
           </button>
 
           <button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
