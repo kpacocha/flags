@@ -37,11 +37,9 @@
     <div class="countries container-fluid" data-ng-if="mode == 1" id="countries_container">
       <ul class="row">
         <li class="country col-lg-3  col-md-3 col-sm-3 col-xs-4" ng-repeat="x in countries">
-          <h3>{{x.name}}</h3>
+          <h3 class="text-center">{{x.name}}</h3>
           <div class="country__details">
-            <div>{{x.region}} - {{x.capital}}</div>
-            
-            
+            <div class="text-center">{{x.region}} - {{x.capital}}</div>
 
             <!-- <div>code: {{x.alpha2Code}}</div>
             <div>population: {{x.population}}</div>
@@ -54,9 +52,10 @@
             <div>nativeName: {{x.nativeName}}</div>
             <div>currencies: {{x.currencies}}</div>
             <div>languages: {{x.languages}}</div> -->
+
           </div>
           <div class="country__flag"> 
-            <img src="{{x.flag}}"></>
+            <img class="img-responsive center-block" src="{{x.flag}}"></>
           </div>
         </li>
        </ul> 
@@ -71,9 +70,7 @@
 
         <div class="guess-flag__answears col-xs-6">
           <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{data[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(data[x].alpha2Code)">
-
             {{ data[x].name }}
-            
           </button>
 
           <button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>

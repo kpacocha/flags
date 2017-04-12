@@ -2,6 +2,14 @@ body{
   background: #f7f7f9;
 }
 
+.country {
+  min-height: 230px;
+}
+
+.countries ul{
+  list-style-type: none;
+}
+
 .country__flag img{
   max-height: 100px;
 }
