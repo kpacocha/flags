@@ -27,8 +27,20 @@
         <a class="navbar-brand" href="#">Flags</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="#" ng-click="showAll()">Show all flags</a></li>
+        <li><a href="#" ng-click="showAll()">Show flags ({{countries.length}})</a></li>
         <li><a href="#" ng-click="gueessFlag()">Guess Random Flag</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose region <span class="caret"></span> </a>
+          <ul class="dropdown-menu">
+            <li ng-repeat="region in regions">
+              <a href="#" ng-click="changeRegion(region)">{{ region }}</a>
+            </li>
+            <li><a href="#" ng-click="showAll()">All</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </nav>
@@ -97,7 +109,7 @@
         </div>
 
         <div class="guess-flag__answears col-xs-6">
-          <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{data[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(data[x].alpha2Code)">
+          <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
             {{ data[x].name }}
           </button>
 

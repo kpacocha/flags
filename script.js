@@ -5,25 +5,24 @@ app.controller('myCtrl', function($scope, $http) {
   $scope.guessFlag.allAsk = 0;
 
   $scope.mode = 0;
+  $scope.regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
-  $http.get("https://restcountries.eu/rest/v2/all")
-  .then(function(response) {
-    //console.log(response.data);
-      $scope.data = response.data;
-  });
+  
 
   $scope.showAll = function() {
     $scope.mode = 1;
-    $scope.countries = $scope.data;
+    $http.get("https://restcountries.eu/rest/v2/all")
+    .then(function(response) {
+        $scope.countries = response.data;
+    });
   };
 
   $scope.gueessFlag = function() {
     $scope.mode = 2;
-    var size = $scope.data.length;
+    var size = $scope.countries.length;
     var randomIndex = Math.floor((Math.random() * size) + 1);
 
-
-    $scope.guessFlag.country = $scope.data[randomIndex];
+    $scope.guessFlag.country = $scope.countries[randomIndex];
     $scope.guessFlag.answersIds = generateAnswers(size, randomIndex);
     if (document.getElementById("next_flag_button")) {
       document.getElementById("next_flag_button").disabled = true;
@@ -47,6 +46,15 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.guessFlag.allAsk += 1;
     document.getElementById("next_flag_button").disabled = false;
     $("#next_flag_button").removeClass('disabled');
+  };
+
+  $scope.changeRegion = function(newRegion) {
+    var url = "https://restcountries.eu/rest/v2/region/" + newRegion;
+    console.log(url);
+    $http.get(url)
+    .then(function(response) {
+        $scope.countries = response.data;
+    });
   };
 
 
