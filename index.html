@@ -17,6 +17,13 @@
 
   <link rel="stylesheet" href="style.css">
 
+  <!-- map -->
+  <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+  <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+  <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+  <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -29,6 +36,7 @@
       <ul class="nav navbar-nav">
         <li><a href="#" ng-click="showAll()">Show flags ({{countries.length}})</a></li>
         <li><a href="#" ng-click="gueessFlag()">Guess Random Flag</a></li>
+        <li><a href="#" ng-click="showMap()">Map</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -51,7 +59,7 @@
       <ul class="row">
 
         <li class="col-lg-3  col-md-3 col-sm-3 col-xs-4"  ng-repeat="x in countries">
-          <div class="country" data-toggle="modal" data-target="#{{x.alpha2Code}}">
+          <div class="country" data-toggle="modal" data-target="#modal_{{x.alpha2Code}}">
             <h3 class="text-center">{{x.name}}</h3>
             <div class="country__details">
               <div class="text-center">{{x.region}} - {{x.capital}}</div>
@@ -64,7 +72,7 @@
           </div>
           
           <!-- Modal -->
-          <div class="modal fade" id="{{x.alpha2Code}}" role="dialog">
+          <div class="modal fade" id="modal_{{x.alpha2Code}}" role="dialog">
             <div class="modal-dialog">
             
               <!-- Modal content-->
@@ -74,6 +82,9 @@
                   <h4 class="modal-title">{{x.name}}</h4>
                 </div>
                 <div class="modal-body">
+                  <div id="map_{{x.alpha2Code}}" style="width: 600px; height: 400px;">
+                    
+                  </div>
                   <div>region: {{x.region}}</div>
                   <div>capital: {{x.capital}}</div>
                   <div>code: {{x.alpha2Code}}</div>
@@ -116,8 +127,10 @@
           <button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
         </div>
       </div>
-      
+    </div>
 
+    <div class="map container_fluid" id="map_container">
+      <div id="mapdiv" style="width: 600px; height: 400px;"></div>
     </div>
   </div>
 

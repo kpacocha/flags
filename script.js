@@ -7,15 +7,19 @@ app.controller('myCtrl', function($scope, $http) {
   $scope.mode = 0;
   $scope.regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 
-  
-
   $scope.showAll = function() {
     $scope.mode = 1;
     $http.get("https://restcountries.eu/rest/v2/all")
-    .then(function(response) {
-        $scope.countries = response.data;
-    });
-  };
+      .then(function(response) {
+          $scope.countries = response.data;
+      });
+    };
+
+  $scope.showAll();
+
+  
+
+  
 
   $scope.gueessFlag = function() {
     $scope.mode = 2;
@@ -57,6 +61,11 @@ app.controller('myCtrl', function($scope, $http) {
     });
   };
 
+  $scope.showMap = function() {
+    $scope.mode = 3;
+    showMap();
+  };
+
 
 
 });
@@ -83,3 +92,38 @@ function generateThreeRandom(n){
   }
   return [n1,n2,n3];
 }
+
+function showMap(countryId) {
+    
+
+  var mapDiv = "map_" + countryId;
+
+  console.log('map div: ' + mapDiv);
+  AmCharts.makeChart( mapDiv, {
+    "type": "map",
+
+    "dataProvider": {
+      "map": "worldLow",
+      "areas": [
+        { "id": countryId }
+      ]
+    },
+
+    "areasSettings": {
+      "autoZoom": true,
+      "selectedColor": "#CC0000"
+    },
+
+    "smallMap": {}
+  } );
+};
+
+$( document ).ready(function() {
+    $('.modal').on('shown.bs.modal', function() {
+      var id = $(this).attr('id').split('_')[1];
+      console.log('open modal ' + id);
+      showMap(id);
+
+      
+  })
+});
