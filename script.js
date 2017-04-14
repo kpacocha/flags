@@ -63,10 +63,8 @@ app.controller('myCtrl', function($scope, $http) {
 
   $scope.showMap = function() {
     $scope.mode = 3;
-    showMap();
+    showMap(null);
   };
-
-
 
 });
 
@@ -94,11 +92,13 @@ function generateThreeRandom(n){
 }
 
 function showMap(countryId) {
-    
-
+  if (countryId == null) {
+    var mapDiv = "mapdiv";
+   
+  }
+  else 
   var mapDiv = "map_" + countryId;
 
-  console.log('map div: ' + mapDiv);
   AmCharts.makeChart( mapDiv, {
     "type": "map",
 
@@ -118,12 +118,10 @@ function showMap(countryId) {
   } );
 };
 
-$( document ).ready(function() {
-    $('.modal').on('shown.bs.modal', function() {
-      var id = $(this).attr('id').split('_')[1];
-      console.log('open modal ' + id);
-      showMap(id);
 
-      
+$( document ).ready(function() {
+  $('.modal').on('shown.bs.modal', function() {
+    var id = $(this).attr('id').split('_')[1];
+    showMap(id);
   })
 });
