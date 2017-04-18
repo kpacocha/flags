@@ -82,22 +82,29 @@
 									<h4 class="modal-title">{{x.name}}</h4>
 								</div>
 								<div class="modal-body">
-									<div id="map_{{x.alpha2Code}}" style="width: 300px; height: 150px;">
+									<div class="row">
+										<div class="modal__flag col-md-4"> 
+											<img class="img-responsive center-block" src="{{x.flag}}"></>
+										</div>
+										<div class="col-md-8" id="map_{{x.alpha2Code}}" style="height: 150px;">
+										</div>
 										
 									</div>
-									<div>region: {{x.region}}</div>
-									<div>capital: {{x.capital}}</div>
-									<div>code: {{x.alpha2Code}}</div>
-									<div>population: {{x.population}}</div>
-									<div>latlng: {{x.latlng}}</div>
-									<div>demonym: {{x.demonym}}</div>
-									<div>area: {{x.area}}</div>
-									<div>gini: {{x.gini}}</div>
-									<div>timezones: {{x.timezones}}</div>
-									<div>borders: {{x.borders}}</div>
-									<div>nativeName: {{x.nativeName}}</div>
-									<div>currencies: {{x.currencies}}</div>
-									<div>languages: {{x.languages}}</div>
+									<div>Region: {{x.region}}</div>
+									<div>Capital: {{x.capital}}</div>
+									<div>Population: {{x.population}}</div>
+									<div>Area: {{x.area}}</div>
+									<div>Gini: {{x.gini}}</div>
+									<div>Currencies: 
+										<span data-ng-repeat="c in x.currencies">
+											{{c.name}} ({{c.code}}) - {{c.symbol}}
+										</span>
+									</div>
+									<div>Languages: 
+										<span data-ng-repeat="l in x.languages">
+											{{l.name}}
+										</span>
+									</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
