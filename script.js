@@ -94,19 +94,21 @@ function generateThreeRandom(n){
 function showMap(countryId) {
   if (countryId == null) {
     var mapDiv = "mapdiv";
-   
+    countryId = "PL";
   }
   else 
   var mapDiv = "map_" + countryId;
 
   AmCharts.makeChart( mapDiv, {
     "type": "map",
-
+    "theme": "light",
     "dataProvider": {
       "map": "worldLow",
-      "areas": [
-        { "id": countryId }
-      ]
+      "getAreasFromMap": true,
+      "linkToObject": countryId
+      //"areas": [
+      //  { "id": countryId }
+      //]
     },
 
     "areasSettings": {

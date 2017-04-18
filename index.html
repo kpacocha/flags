@@ -3,138 +3,136 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Flags</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="script.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Flags</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="script.js"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="style.css">
 
-  <!-- map -->
-  <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-  <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
-  <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-  <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-  <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+	<!-- map -->
+	<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+	<script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
+	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+	<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+	<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 
 </head>
 
 <body ng-app="myApp" ng-controller="myCtrl">
 
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Flags</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a href="#" ng-click="showAll()">Show flags ({{countries.length}})</a></li>
-        <li><a href="#" ng-click="gueessFlag()">Guess Random Flag</a></li>
-        <li><a href="#" ng-click="showMap()">Map</a></li>
-      </ul>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Flags</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#" ng-click="showAll()">Show flags ({{countries.length}})</a></li>
+				<li><a href="#" ng-click="gueessFlag()">Guess Random Flag</a></li>
+				<li><a href="#" ng-click="showMap()">Map</a></li>
+			</ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose region <span class="caret"></span> </a>
-          <ul class="dropdown-menu">
-            <li ng-repeat="region in regions">
-              <a href="#" ng-click="changeRegion(region)">{{ region }}</a>
-            </li>
-            <li><a href="#" ng-click="showAll()">All</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  
-  <div class="container" id="page_center">
-    
-    <div class="countries container-fluid" data-ng-if="mode == 1" id="countries_container">
-      <ul class="row">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Choose region <span class="caret"></span> </a>
+					<ul class="dropdown-menu">
+						<li ng-repeat="region in regions">
+							<a href="#" ng-click="changeRegion(region)">{{ region }}</a>
+						</li>
+						<li><a href="#" ng-click="showAll()">All</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class="container" id="page_center">
+		
+		<div class="countries container-fluid" data-ng-if="mode == 1" id="countries_container">
+			<ul class="row">
 
-        <li class="col-lg-3  col-md-3 col-sm-3 col-xs-4"  ng-repeat="x in countries">
-          <div class="country" data-toggle="modal" data-target="#modal_{{x.alpha2Code}}">
-            <h3 class="text-center">{{x.name}}</h3>
-            <div class="country__details">
-              <div class="text-center">{{x.region}} - {{x.capital}}</div>
-
-
-            </div>
-            <div class="country__flag"> 
-              <img class="img-responsive center-block" src="{{x.flag}}"></>
-            </div>
-          </div>
-          
-          <!-- Modal -->
-          <div class="modal fade" id="modal_{{x.alpha2Code}}" role="dialog">
-            <div class="modal-dialog">
-            
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">{{x.name}}</h4>
-                </div>
-                <div class="modal-body">
-                  <div id="map_{{x.alpha2Code}}" style="width: 600px; height: 400px;">
-                    
-                  </div>
-                  <div>region: {{x.region}}</div>
-                  <div>capital: {{x.capital}}</div>
-                  <div>code: {{x.alpha2Code}}</div>
-                  <div>population: {{x.population}}</div>
-                  <div>latlng: {{x.latlng}}</div>
-                  <div>demonym: {{x.demonym}}</div>
-                  <div>area: {{x.area}}</div>
-                  <div>gini: {{x.gini}}</div>
-                  <div>timezones: {{x.timezones}}</div>
-                  <div>borders: {{x.borders}}</div>
-                  <div>nativeName: {{x.nativeName}}</div>
-                  <div>currencies: {{x.currencies}}</div>
-                  <div>languages: {{x.languages}}</div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-              
-            </div>
-          </div>
-
-        </li>
-        
-       </ul> 
-    </div>
-
-    <div class="guess-flag container-fluid" data-ng-if="mode == 2" id="guess_flag_container">
-      <h3>Twój wynik: {{guessFlag.score}}/{{guessFlag.allAsk}}</h3>
-      <div class="row">
-        <div class="guess-flag__image col-xs-6">
-          <img class="img-responsive center-block"src="{{guessFlag.country.flag}}"></>
-        </div>
-
-        <div class="guess-flag__answears col-xs-6">
-          <button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
-            {{ countries[x].name }}
-          </button>
-
-          <button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="map container_fluid" id="map_container">
-      <div id="mapdiv" style="width: 600px; height: 400px;"></div>
-    </div>
-  </div>
+				<li class="col-lg-3  col-md-3 col-sm-3 col-xs-4"  ng-repeat="x in countries">
+					<div class="country" data-toggle="modal" data-target="#modal_{{x.alpha2Code}}">
+						<h3 class="text-center">{{x.name}}</h3>
+						<div class="country__details">
+							<div class="text-center">{{x.region}} - {{x.capital}}</div>
 
 
+						</div>
+						<div class="country__flag"> 
+							<img class="img-responsive center-block" src="{{x.flag}}"></>
+						</div>
+					</div>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="modal_{{x.alpha2Code}}" role="dialog">
+						<div class="modal-dialog">
+						
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">{{x.name}}</h4>
+								</div>
+								<div class="modal-body">
+									<div id="map_{{x.alpha2Code}}" style="width: 300px; height: 150px;">
+										
+									</div>
+									<div>region: {{x.region}}</div>
+									<div>capital: {{x.capital}}</div>
+									<div>code: {{x.alpha2Code}}</div>
+									<div>population: {{x.population}}</div>
+									<div>latlng: {{x.latlng}}</div>
+									<div>demonym: {{x.demonym}}</div>
+									<div>area: {{x.area}}</div>
+									<div>gini: {{x.gini}}</div>
+									<div>timezones: {{x.timezones}}</div>
+									<div>borders: {{x.borders}}</div>
+									<div>nativeName: {{x.nativeName}}</div>
+									<div>currencies: {{x.currencies}}</div>
+									<div>languages: {{x.languages}}</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+				</li>
+				
+			 </ul> 
+		</div>
+
+		<div class="guess-flag container-fluid" data-ng-if="mode == 2" id="guess_flag_container">
+			<h3>Twój wynik: {{guessFlag.score}}/{{guessFlag.allAsk}}</h3>
+			<div class="row">
+				<div class="guess-flag__image col-xs-6">
+					<img class="img-responsive center-block"src="{{guessFlag.country.flag}}"></>
+				</div>
+
+				<div class="guess-flag__answears col-xs-6">
+					<button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
+						{{ countries[x].name }}
+					</button>
+
+					<button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="map container_fluid" id="map_container" data-ng-if="mode == 3">
+			<div id="mapdiv" style="width: 600px; height: 400px;"></div>
+		</div>
+	</div>
 
 
 
@@ -142,10 +140,12 @@
 
 
 
-  <footer>
-    <p>Copyright 2017 by <a href="https://github.com/pacochak">pacochak</a></p>
-    <p>Created using API from <a href="https://restcountries.eu/">https://restcountries.eu/<a></p>
-  </footer>
+
+
+	<footer>
+		<p>Copyright 2017 by <a href="https://github.com/pacochak">pacochak</a></p>
+		<p>Created using API from <a href="https://restcountries.eu/">https://restcountries.eu/<a></p>
+	</footer>
 
 </body>
 
