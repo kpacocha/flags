@@ -90,20 +90,37 @@
 										</div>
 										
 									</div>
-									<div>Region: {{x.region}}</div>
-									<div>Capital: {{x.capital}}</div>
-									<div>Population: {{x.population}}</div>
-									<div>Area: {{x.area}}</div>
-									<div>Gini: {{x.gini}}</div>
-									<div>Currencies: 
-										<span data-ng-repeat="c in x.currencies">
-											{{c.name}} ({{c.code}}) - {{c.symbol}}
-										</span>
-									</div>
-									<div>Languages: 
-										<span data-ng-repeat="l in x.languages">
-											{{l.name}}
-										</span>
+									<div class="table_container">
+										<table class="table table-striped">
+											<tr>
+												<td class="labe">Region:</td><td class="value text-right">{{x.region}}</td>
+											</tr>
+											<tr>
+												<td class="labe">Capital:</td><td class="value text-right">{{x.capital}}</td>
+											</tr>
+											<tr>
+												<td class="labe">Population: </td><td class="value text-right">{{x.population}}</td>
+											</tr>
+											<tr>
+												<td class="labe">Area:</td><td class="value text-right">{{x.area}} km<sup>2</sup></td>
+											</tr>
+											<tr>
+												<td class="labe">Currencies: </td>
+												<td class="value text-right">
+													<span data-ng-repeat="c in x.currencies">
+														{{c.name}} ({{c.code}}) - {{c.symbol}}
+													</span>
+												</td>
+											</tr>
+											<tr>
+												<td class="labe">Languages: </td>
+												<td class="value text-right">
+													<div data-ng-repeat="l in x.languages">
+														{{l.name}}
+													</div>
+												</td>
+											</tr>
+										</table>
 									</div>
 								</div>
 								<div class="modal-footer">
