@@ -1,8 +1,11 @@
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
-  $scope.guessFlag = {};
-  $scope.guessFlag.score = 0;
-  $scope.guessFlag.allAsk = 0;
+  $scope.game = {};
+  $scope.game.score = 0;
+  $scope.game.askedCount = 0;
+  $scope.game.started = false;
+  $scope.game.configuration = {};
+  $scope.game.configuration = {questionCount: 4};
 
   $scope.mode = 0;
   $scope.regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -25,9 +28,9 @@ app.controller('myCtrl', function($scope, $http) {
     $scope.mode = 2;
     var size = $scope.countries.length;
     var randomIndex = Math.floor((Math.random() * size) + 1);
-
-    $scope.guessFlag.country = $scope.countries[randomIndex];
-    $scope.guessFlag.answersIds = generateAnswers(size, randomIndex);
+    $scope.game.askedCount += 1;
+    $scope.game.country = $scope.countries[randomIndex];
+    $scope.game.answersIds = generateAnswers(size, randomIndex);
     if (document.getElementById("next_flag_button")) {
       document.getElementById("next_flag_button").disabled = true;
     }
@@ -36,9 +39,10 @@ app.controller('myCtrl', function($scope, $http) {
   };
 
   $scope.checkFlag = function(code) {
-    var correctCode = $scope.guessFlag.country.alpha2Code;
+
+    var correctCode = $scope.game.country.alpha2Code;
     if (code == correctCode) {
-      $scope.guessFlag.score += 1;
+      $scope.game.score += 1;
       var correctAnswear = '.answer_button--' + correctCode;
       $(correctAnswear).removeClass('btn-default').addClass('btn-success');
     } else {
@@ -47,7 +51,7 @@ app.controller('myCtrl', function($scope, $http) {
       $(correctAnswear).removeClass('btn-default').addClass('btn-success');
       $(wrongAnswear).removeClass('btn-default').addClass('btn-danger');
     }
-    $scope.guessFlag.allAsk += 1;
+    
     document.getElementById("next_flag_button").disabled = false;
     $("#next_flag_button").removeClass('disabled');
   };
@@ -64,6 +68,10 @@ app.controller('myCtrl', function($scope, $http) {
   $scope.showMap = function() {
     $scope.mode = 3;
     showMap(null);
+  };
+
+  $scope.getResults = function() {
+    return $scope.game.score / $scope.game.configuration.questionCount * 100;
   };
 
 });

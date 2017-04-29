@@ -137,20 +137,34 @@
 		</div>
 
 		<div class="guess-flag container-fluid" data-ng-if="mode == 2" id="guess_flag_container">
-			<h3>Twój wynik: {{guessFlag.score}}/{{guessFlag.allAsk}}</h3>
-			<div class="row">
-				<div class="guess-flag__image col-xs-6">
-					<img class="img-responsive center-block"src="{{guessFlag.country.flag}}"></>
+			<div class="prepare_game_container">
+				<button id="start_game_button" ng-click="game.started = true">Start Game</button>
+			</div>
+
+			<div class="game_container" data-ng-if="game.started == true">
+				<h3>Twój wynik: {{game.score}}</h3>
+				
+				<div class="row" data-ng-if="game.askedCount <= game.configuration.questionCount">
+					<h3>Pytanie {{game.askedCount}} z {{game.configuration.questionCount}} </h3>
+					<div class="guess-flag__image col-xs-6">
+						<img class="img-responsive center-block"src="{{game.country.flag}}"></>
+					</div>
+
+					<div class="guess-flag__answears col-xs-6">
+						<button ng-repeat="x in game.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
+							{{ countries[x].name }}
+						</button>
+
+						<button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
+					</div>
 				</div>
 
-				<div class="guess-flag__answears col-xs-6">
-					<button ng-repeat="x in guessFlag.answersIds" class="answer-button answer_button--{{countries[x].alpha2Code}} btn btn-default btn-block" ng-click="checkFlag(countries[x].alpha2Code)">
-						{{ countries[x].name }}
-					</button>
-
-					<button id="next_flag_button" class="btn btn-primary btn-block btn-lg disabled" disabled ng-click="gueessFlag()">Next</button>
+				<div class="results_container" data-ng-if="game.askedCount > game.configuration.questionCount">
+					Koniec gry
+					Twój wynik: {{game.score}} / {{game.configuration.questionCount}} ({{getResults()}}%)
 				</div>
 			</div>
+			
 		</div>
 
 		<div class="map container_fluid" id="map_container" data-ng-if="mode == 3">
